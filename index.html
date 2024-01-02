@@ -1,153 +1,221 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="stylesheet" type="text/css" href="./style.css"> -->
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-    * {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      font-family: 'Montserrat', sans-serif;
-    }
-    body {
-      background: rgba(180, 200, 190, 0.5);
-      display: grid;
-      place-items: center;
-      height: 100vh;
-    }
-    .container {
-      max-width: 30rem;
-      width: 100%;
-    /*   border: 1px solid gray; */
-      border-radius: 8px;
-      box-shadow: 2px 2px 5px gray;
-    }
-    .form-field {
-      display: grid;
-      gap: 1rem;
-      place-items: center;
-      padding: 10px;
-    }
-    .btns {
-      display: flex;
-      flex-directions: row;
-      gap: 1rem;
-    }
-    button {
-      max-width: 80%;
-      width: 100%;
-      background: rgba(90, 255, 80, 0.7);
-      border: none;
-      outline: none;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      color: rgba(250, 250, 250, 0.8);
-      font-weight: 600;
-    }
-    input {
-      outline: none;
-      border-radius: 4px;
-      border: none;
-      box-shadow: 2px 2px 4px gray;
-      padding: 0.5rem 8px;
-      color: rgba(0, 0, 0, 0.8);
-    }
-    li::before{
-      content:"👉 ";
-    }
-    ul {
-      margin: 2rem 0;
-      list-style:none;
-      max-width: 30rem;
-      width: 100%;
-      border-radius: 8px;
-      box-shadow: 2px 2px 5px gray;
-      padding: 10px;
-    }
-  </style>
-  <title>Todo App</title>  
-</head>
-<body>
-  <div class='container'>
-    <div class="form-field">
-    <h1>Todo</h1>
-      <div>
-        <label>Title</label>
-        <input type="text" id="title"/>
-      </div>
-      <div>
-        <label>Description</label>
-        <input type="text" id="Desc"/>
-      </div>
-      <div class="btns"> 
-
-        <button onclick="getData()">Get</button>
-        <button onclick="onPress()">Send</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" type="text/css" href="./style.css"> -->
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Montserrat", sans-serif;
+      }
+      body {
+        background: rgba(180, 200, 190, 0.5);
+        display: grid;
+        place-items: center;
+        height: 100vh;
+      }
+      .container {
+        max-width: 30rem;
+        width: 100%;
+        /*   border: 1px solid gray; */
+        border-radius: 8px;
+        box-shadow: 2px 2px 5px gray;
+      }
+      .form-field {
+        display: grid;
+        gap: 1rem;
+        place-items: center;
+        padding: 10px;
+      }
+      .btns {
+        display: flex;
+        flex-directions: row;
+        gap: 1rem;
+      }
+      button {
+        max-width: 80%;
+        width: 100%;
+        background: rgba(90, 255, 80, 0.7);
+        border: none;
+        outline: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        color: rgba(250, 250, 250, 0.8);
+        font-weight: 600;
+      }
+      input {
+        outline: none;
+        border-radius: 4px;
+        border: none;
+        box-shadow: 2px 2px 4px gray;
+        padding: 0.5rem 8px;
+        color: rgba(0, 0, 0, 0.8);
+      }
+      /* li::before {
+        content: "👉 ";
+      } */
+      ol {
+        margin: 2rem 0;
+        max-width: 30rem;
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 2px 2px 5px gray;
+        padding: 5px;
+      }
+      li {
+        list-style: none;
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+      }
+      .delete {
+        display: flex;
+        gap: 0.6rem;
+      }
+      .deleteBtn {
+        max-height: 2rem;
+        height: 100%;
+        max-width: 5rem;
+        width: 100%;
+        background: tomato;
+        margin: 0 10px;
+      }
+      .li-container {
+        display: flex;
+        flex-direction: row;
+      }
+    </style>
+    <title>Todo App</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-field">
+        <h1>Todo</h1>
+        <div>
+          <label>Title</label>
+          <input type="text" id="title" />
         </div>
+        <div>
+          <label>Description</label>
+          <input type="text" id="Desc" />
+        </div>
+
+        <div class="btns">
+          <button onclick="getData()">Get</button>
+          <button onclick="onPress()">Send</button>
+        </div>
+        <!-- <div class="delete">
+          <input id="index" type="number" placeholder="Enter index" />
+          <button id="deleteBtn">Delete</button>
+        </div> -->
+      </div>
     </div>
-  </div>
-<ul id="PrevData">
-  
-</ul>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const title = document.getElementById("title");
-      const description = document.getElementById("Desc");
-//const ul = document.getElementById("PrevData");
-      window.parsedRes = function(data) {
-       console.log(data)
-      };
+    <ol id="PrevData"></ol>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const title = document.getElementById("title");
+        const description = document.getElementById("Desc");
 
-      window.callBack = function(res) {
-        res.json().then(parsedRes);
-      };
+        // const delIndex = document.getElementById("index").value;
+        // const deleteBtn = document.getElementById("deleteBtn");
 
-      window.onPress = function() {
+        //const ul = document.getElementById("PrevData");
 
-        fetch("https://nodejs--statusmood25.repl.co/todos", {
-          method: "POST",
+        window.onload = function () {
+          getData();
+        };
+        window.parsedRes = function (data) {
+          console.log(data);
+        };
+
+        window.callBack = function (res) {
+          res.json().then(parsedRes);
+        };
+
+        window.onPress = function () {
+          fetch("https://todonode.enn-dee.repl.co/todos/", {
+            method: "POST",
+            body: JSON.stringify({
+              title: `${title.value}`,
+              description: `${description.value}`,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }).then(window.callBack);
+          title.value = "";
+          description.value = "";
+        };
+
+        window.showDataCb = function (data) {
+          const ol = document.getElementById("PrevData");
+
+          ol.innerHTML = "";
+
+          // Iterate through the data and create list items
+          data.forEach((item, index, arr) => {
+            const li = document.createElement("li");
+            var delBtn = document.createElement("button");
+            delBtn.setAttribute("class", "deleteBtn");
+
+            delBtn.textContent = "Delete";
+            delBtn.setAttribute("onclick", `deleteTodo(${data[index].id})`);
+
+            li.textContent = `Title: ${item.title}, Description: ${item.description}`;
+
+            li.appendChild(delBtn);
+            ol.appendChild(li);
+          });
+        };
+
+        window.DataCB = function (res) {
+          res.json().then(window.showDataCb);
+        };
+
+        window.getData = function () {
+          fetch("https://todonode.enn-dee.repl.co/todos", {
+            method: "GET",
+          }).then(window.DataCB);
+        };
+      });
+
+      function deleteTodo(id) {
+        console.log("Deleting todo with ID:", id);
+        fetch(`https://todonode.enn-dee.repl.co/todos/${id}`, {
+          method: "DELETE",
           headers: {
-            "Content-Type": 'application/json'
+            "Content-type": "application/json",
           },
-          body: JSON.stringify({
-            title : `${title.value}`,
-            description: `${description.value}`
-          }),
-        }).then(callBack);
-      };
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(deleteData)
+          .catch((error) => {
+            console.error("Error deleting todo:", error);
+          });
+      }
 
-
-      
-      window.showDataCb = function(data) {
-   
-        const ul = document.getElementById("PrevData");
-
-        // Clear existing list items
-        ul.innerHTML = '';
-
-        // Iterate through the data and create list items
-        data.forEach((item, index) => {
-          const li = document.createElement("li");
-          li.textContent = `Title: ${item.title}, Description: ${item.description}`;
-          ul.appendChild(li);
-        });
-      };
-
-
-      window.DataCB = function(res) {
-        res.json().then(showDataCb);
-      };
-
-      window.getData = function() {
-        fetch("https://nodejs--statusmood25.repl.co/todos", {
-          method: "GET"
-        }).then(DataCB);
-      };
-    });
-  </script>
-</body>
+      // function deleteData() {
+      //   console.log("deleted successfully");
+      // }
+      // function deleteTodo(index) {
+      //   console.log(index);
+      //   fetch("https://todonode.enn-dee.repl.co/todos/" + index, {
+      //     method: "DELETE",
+      //     headers: {
+      //       "Content-type": "application/json",
+      //     },
+      //   }).then(deleteData);
+      // }
+    </script>
+  </body>
 </html>
