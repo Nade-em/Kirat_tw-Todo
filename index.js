@@ -17,6 +17,7 @@ function findIndex(arr, id) {
   }
   return -1;
 }
+
 function removeAtIndex(arr, index) {
   let newArray = [];
   for (let i = 0; i < arr.length; i++) {
@@ -78,12 +79,11 @@ app.put("/todos/:id", (req, res) => {
 
 app.delete("/todos/:id", (req, res) => {
   const todoIndex = findIndex(todos, parseInt(req.params.id));
-
   if (todoIndex === -1) {
     res.status(404).send();
   } else {
     todos = removeAtIndex(todos, todoIndex);
-    res.status(200).send();
+    res.status(200).send(req.params.id);
   }
 });
 
