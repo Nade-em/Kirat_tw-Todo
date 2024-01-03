@@ -184,6 +184,9 @@
         };
       });
 
+      function deleteData() {
+        console.log("deleted successfully");
+      }
       function deleteTodo(id) {
         console.log("Deleting todo with ID:", id);
         fetch(`https://todonode.enn-dee.repl.co/todos/${id}`, {
@@ -204,9 +207,6 @@
           });
       }
 
-      // function deleteData() {
-      //   console.log("deleted successfully");
-      // }
       // function deleteTodo(index) {
       //   console.log(index);
       //   fetch("https://todonode.enn-dee.repl.co/todos/" + index, {
