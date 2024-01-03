@@ -115,6 +115,7 @@
         </div> -->
       </div>
     </div>
+    <ol id="mainArea"></ol>
     <ol id="PrevData"></ol>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -184,30 +185,49 @@
         };
       });
 
-      function deleteData() {
-        console.log("Deleted successfully");
-      }
-
       function deleteTodo(id) {
-        console.log("Deleting todo with ID:", id);
+        console.log("Deleting todo : id", id);
+        function deletedResponseData(data) {
+          var parentElement = document.getElementById("mainArea");
+          var removeChildElement = document.getElementById(data);
 
-        fetch(`https://todonode.enn-dee.repl.co/todos/${id}`, {
+          parentElement.removeChild(removeChildElement);
+        }
+
+        function deleteResponse(data) {
+          data.json(data).then(deletedResponseData);
+        }
+
+        fetch("https://todonode.enn-dee.repl.co/todos" + id, {
           method: "DELETE",
-          headers: {
-            "Content-type": "application/json",
-          },
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then(deleteData)
-          .catch((error) => {
-            console.error("Error deleting todo:", error.message);
-          });
+        }).then(deleteResponse);
       }
+
+      // *** my code ***
+      // function deleteData() {
+      //   console.log("Deleted successfully");
+      // }
+
+      // function deleteTodo(id) {
+      //   console.log("Deleting todo with ID:", id);
+
+      //   fetch(`https://todonode.enn-dee.repl.co/todos/${id}`, {
+      //     method: "DELETE",
+      //     headers: {
+      //       "Content-type": "application/json",
+      //     },
+      //   })
+      //     .then((response) => {
+      //       if (!response.ok) {
+      //         throw new Error(`HTTP error! Status: ${response.status}`);
+      //       }
+      //       return response.json();
+      //     })
+      //     .then(deleteData)
+      //     .catch((error) => {
+      //       console.error("Error deleting todo:", error.message);
+      //     });
+      // }
 
       // function deleteTodo(index) {
       //   console.log(index);
